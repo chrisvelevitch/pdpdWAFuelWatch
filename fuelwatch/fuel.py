@@ -31,11 +31,11 @@ items = x.findall(".//item")
 print(len(items[0]))
 prices = []
 for i1 in items:
-    dict = {}
+    d = {}
     for i in i1:
-        dict[i.tag] = str(i.text)
-    # print(str(dict))
-    prices.append(dict)
+        d[i.tag] = str(i.text)
+    # print(str(d))
+    prices.append(d)
 print('---step 5---')
 
 def by(i):
