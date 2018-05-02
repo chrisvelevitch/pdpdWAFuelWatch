@@ -2,9 +2,7 @@
 
 from urllib import request
 from xml.etree import ElementTree as ET
-# import lxml
 import sys
-# import urllib3
 
 print('---start---')
 print('version: '+sys.version)
@@ -27,19 +25,21 @@ print(type(x))
 print(x.tag)
 print(x.findall(".//item"))
 print('---step 4---')
-items = x.findall(".//item")
-print(len(items[0]))
-prices = []
-for i1 in items:
-    d = {}
-    for i in i1:
-        d[i.tag] = str(i.text)
-    # print(str(d))
-    prices.append(d)
-print('---step 5---')
+fuelRecords = x.findall(".//item")
+print('Found '+str(len(fuelRecords))+' fuel records')
+prices = [
+    {
+        xmlFuelRecord.tag: str(xmlFuelRecord.text)
+        for xmlFuelRecord in fuelRecord
+    }
+    for fuelRecord in fuelRecords
+]
 
 def by(i):
     return 'price'
-
-print(str(sorted(prices, key=by)))
+prices = sorted(prices, key=by)
+print('---step 5---')
+for price in prices:
+    print('name:' + price['trading-name'])
+print(prices[0].keys())
 print('---end---')
